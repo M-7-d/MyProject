@@ -1,5 +1,10 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myproject/Data/RecipeRepository.dart';
 import 'package:myproject/Domain/Recipes.dart';
+
+final recipeRepositoryProvider = Provider<RecipeRepository>((ref) {
+  return InMemoryRecipeRepository();
+});
 
 class InMemoryRecipeRepository implements RecipeRepository {
   final List<RecipeModel> _recipes = [];

@@ -5,7 +5,7 @@ class FoodItem extends StatelessWidget {
   final String image;
   final String title;
   final String days;
-  final double weight;
+  final String weight;
   const FoodItem(
       {super.key,
       required this.image,

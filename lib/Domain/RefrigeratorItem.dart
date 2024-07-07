@@ -1,10 +1,8 @@
-import 'package:get/get.dart';
-
-class RefrigeratorItemModel extends GetxController {
+class RefrigeratorItemModel {
   final String name;
-  final DateTime purchaseDate;
-  final DateTime expirationDate;
-  final int quantity;
+  final String purchaseDate;
+  final String expirationDate;
+  final String quantity;
   final String unit;
   final String marketName;
   final String notes;
@@ -18,34 +16,60 @@ class RefrigeratorItemModel extends GetxController {
     required this.marketName,
     required this.notes,
   });
-  @override
-  bool operator ==(Object other) {
-    return name == (other as RefrigeratorItemModel).name;
+
+  factory RefrigeratorItemModel.initial() {
+    return RefrigeratorItemModel(
+      name: '',
+      purchaseDate: '',
+      expirationDate: '',
+      quantity: '',
+      unit: '',
+      marketName: '',
+      notes: '',
+    );
+  }
+
+  RefrigeratorItemModel copyWith({
+    String? name,
+    String? purchaseDate,
+    String? expirationDate,
+    String? quantity,
+    String? unit,
+    String? marketName,
+    String? notes,
+  }) {
+    return RefrigeratorItemModel(
+      name: name ?? this.name,
+      purchaseDate: purchaseDate ?? this.purchaseDate,
+      expirationDate: expirationDate ?? this.expirationDate,
+      quantity: quantity ?? this.quantity,
+      unit: unit ?? this.unit,
+      marketName: marketName ?? this.marketName,
+      notes: notes ?? this.notes,
+    );
   }
 
   factory RefrigeratorItemModel.fromMap(Map<String, dynamic> map) {
     return RefrigeratorItemModel(
       name: map['name'],
-      purchaseDate: DateTime.parse(map['purchaseDate']),
-      expirationDate: DateTime.parse(map['expirationDate']),
+      purchaseDate: map['purchaseDate'],
+      expirationDate: map['expirationDate'],
       quantity: map['quantity'],
       unit: map['unit'],
       marketName: map['marketName'],
       notes: map['notes'],
     );
   }
+
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'purchaseDate': purchaseDate.toIso8601String(),
-      'expirationDate': expirationDate.toIso8601String(),
+      'purchaseDate': purchaseDate,
+      'expirationDate': expirationDate,
       'quantity': quantity,
       'unit': unit,
       'marketName': marketName,
       'notes': notes,
     };
   }
-
-  @override
-  int get hashCode => super.hashCode;
 }

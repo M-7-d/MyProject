@@ -65,6 +65,7 @@ class FirestoreRefrigeratorItemRepository
       if (snapshot.docs.isNotEmpty) {
         await collection.doc(snapshot.docs.first.id).update(item.toMap());
       }
+      // ignore: unused_catch_clause
     } on FirebaseException catch (e) {
       throw Exception('Failed to update item');
     } catch (e) {

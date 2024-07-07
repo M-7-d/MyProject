@@ -1,16 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:myproject/test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myproject/test2.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomButton extends ConsumerWidget {
   final String text;
   const CustomButton({super.key, required this.text});
 
   @override
-  Widget build(BuildContext context) {
-    final contoller = Get.put(ItemsController());
-    final _db = FirebaseFirestore.instance;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final db = FirebaseFirestore.instance;
+    final item = ref.watch(itemsProvider);
+
     return SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -19,15 +20,7 @@ class CustomButton extends StatelessWidget {
                 backgroundColor:
                     MaterialStatePropertyAll(Color.fromRGBO(20, 27, 44, 1))),
             onPressed: () {
-              _db.collection("Add_New_Item").add({
-                "name": contoller.name,
-                "purchaseDate": contoller.purchaseDate,
-                "expirationDate": contoller.expirationDate,
-                "quantity": contoller.quantity,
-                "unit": contoller.unit,
-                "marketName": contoller.marketName,
-                "notes": contoller.notes
-              });
+              db.collection("Add_New_Item").add(item.toMap());
             },
             child: Text(
               text,

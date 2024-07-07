@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myproject/Presentation/components/text_forms.dart';
 import 'package:myproject/Presentation/widgets/circular_image.dart';
 import 'package:myproject/Presentation/widgets/custom_Images.dart';
 import 'package:myproject/Presentation/widgets/custom_textformfield.dart';
 import 'package:myproject/Presentation/widgets/custom_title.dart';
 import 'package:myproject/Presentation/widgets/products.dart';
-import 'package:myproject/test.dart';
+import 'package:myproject/test2.dart';
 import '../widgets/custom_appbar.dart';
 
-class AddItemsPage extends StatelessWidget {
+class AddItemsPage extends ConsumerWidget {
   AddItemsPage({super.key});
 
   final List<String> list = [
@@ -22,15 +22,16 @@ class AddItemsPage extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
-    final contoller = Get.put(ItemsController());
+    final controller = ref.read(itemsProvider.notifier);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
           height: height,
           child: Form(
-            key: contoller.loginFormKey,
+            key: controller.formKey,
             child: Stack(
               children: [
                 Positioned.fill(
@@ -85,7 +86,7 @@ class AddItemsPage extends StatelessWidget {
                             Expanded(
                                 child: CustomTextFormField(
                                     onChanged: (value) {
-                                      contoller.name = value;
+                                      controller.updateName(value);
                                     },
                                     text: "Name"))
                           ],

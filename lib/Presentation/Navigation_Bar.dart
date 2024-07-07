@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myproject/Presentation/Screens/add_Recipe.dart';
 import 'package:myproject/Presentation/Screens/add_item_Page.dart';
+import 'package:myproject/Presentation/Screens/my_refrigerator.dart';
 import 'package:myproject/Presentation/Screens/storage_Tips.dart';
 import 'Screens/recipes_Page.dart';
 
@@ -14,7 +15,7 @@ class CustomNavigationBaar extends StatefulWidget {
 class _CustomNavigationBaarState extends State<CustomNavigationBaar> {
   int myIndex = 0;
   List<Widget> pages = [
-    AddItemsPage(),
+    MyRefrigerator(),
     RecipesPage(),
     AddRecipePage(),
     StorageTipsPsge()
@@ -26,7 +27,11 @@ class _CustomNavigationBaarState extends State<CustomNavigationBaar> {
       floatingActionButton: FloatingActionButton(
         shape: const ContinuousRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(70))),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => AddItemsPage(),
+          ));
+        },
         child: const Icon(
           Icons.add,
         ),
@@ -44,11 +49,11 @@ class _CustomNavigationBaarState extends State<CustomNavigationBaar> {
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.receipt), label: "Receip"),
+            BottomNavigationBarItem(icon: Icon(Icons.receipt), label: "Recipe"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.tips_and_updates), label: "Storage Tips"),
+                icon: Icon(Icons.tips_and_updates), label: "Add Recipe"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person), label: "My Profile"),
+                icon: Icon(Icons.person), label: "Storage Tips"),
           ]),
       body: pages[myIndex],
     );

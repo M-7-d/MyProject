@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myproject/Presentation/widgets/custom_button.dart';
 import 'package:myproject/Presentation/widgets/custom_textformfield.dart';
 import 'package:myproject/Presentation/widgets/different_Size_TextField.dart';
-import 'package:myproject/test.dart';
+import 'package:myproject/test2.dart';
 import '../widgets/custom_textFields.dart';
 
-class TextForms extends StatelessWidget {
+class TextForms extends ConsumerWidget {
   const TextForms({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final contoller = Get.put(ItemsController());
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.read(itemsProvider.notifier);
+
     return Column(
       children: [
         CustomtextFields(
             onChanged1: (value) {
-              contoller.purchaseDate = value;
+              controller.updatePurchaseDate(value);
             },
             onChanged2: (value) {
-              contoller.expirationDate = value;
+              controller.updateExpirationDate(value);
             },
             text1: "Purchase Date",
             text2: "Expiration Date"),
         const SizedBox(height: 15),
         CustomtextFields(
             onChanged1: (value) {
-              contoller.quantity = value;
+              controller.updateQuantity(value);
             },
             onChanged2: (value) {
-              contoller.unit = value;
+              controller.updateUnit(value);
             },
             text1: "Quantity",
             text2: "Unit"),
@@ -38,12 +39,12 @@ class TextForms extends StatelessWidget {
         ),
         CustomTextFormField(
             onChanged: (value) {
-              contoller.marketName = value;
+              controller.updateMarketName(value);
             },
             text: "Market Name"),
         DifferentSizeTextForm(
             onChanged: (value) {
-              contoller.notes = value;
+              controller.updateNotes(value);
             },
             text: "Notes...",
             contentPaddingSize: 60),
